@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Klasifikasi Jamur</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --section-bg: #f9f9f9;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7fa;
+            padding-top: var(--header-height);
+            padding-left: var(--sidebar-width);
+        }
+
+        /* Header styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background-color: var(--background-color);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            padding-left: calc(var(--sidebar-width) + 20px);
+            padding-right: 20px;
+            z-index: 100;
+        }
+
+        header h1 {
+            color: var(--text-color);
+            font-size: 1.7rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            background-color: var(--background-color);
+            box-shadow: var(--box-shadow);
+            overflow-y: auto;
+            padding: 20px;
+            z-index: 99;
+        }
+
+        .sidebar h2 {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+        }
+
+        .sidebar ul li {
+            margin: 12px 0;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar a:hover {
+            background-color: #edf2f7;
+            color: var(--primary-color);
+        }
+
+        /* Main content styles */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: var(--background-color);
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        h3 {
+            color: #3498db;
+            margin-top: 25px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            border-left: 3px solid var(--primary-color);
+            margin: 15px 0;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .section {
+            background-color: var(--section-bg);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .note,
+        .warning,
+        .tip {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: var(--border-radius);
+        }
+
+        .note {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+        }
+
+        .warning {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+        }
+
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-left: 0;
+            }
+
+            .sidebar {
+                left: -100%;
+                transition: left 0.3s ease;
+            }
+
+            header {
+                padding-left: 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                background-color: var(--primary-color);
+                border-radius: 50%;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                box-shadow: var(--box-shadow);
+                z-index: 101;
+                cursor: pointer;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Klasifikasi Jamur Lanjutan dengan EDA, Pra-pemrosesan, dan Optimasi Hyperparameter Menggunakan PSO</h1>
+    </header>
+
+    <aside class="sidebar">
+        <h2>Daftar Isi</h2>
+        <ul>
+            <li><a href="#introduction">1. Pendahuluan</a></li>
+            <li><a href="#libraries">2. Perpustakaan dan Dependensi</a></li>
+            <li><a href="#data-loading">3. Pemrosesan Data dan Pengaturan Awal</a></li>
+            <li><a href="#eda">4. Analisis Data Eksploratori (EDA)</a></li>
+            <li><a href="#preprocessing">5. Pra-pemrosesan Citra dan Augmentasi Data</a></li>
+            <li><a href="#gpu-setup">6. Pengaturan GPU</a></li>
+            <li><a href="#hyperparameter-optimization">7. Optimasi Hyperparameter dengan PSO</a></li>
+            <li><a href="#model-training">8. Pelatihan Model dengan Hyperparameter</a></li>
+            <li><a href="#evaluation">9. Evaluasi Model</a></li>
+            <li><a href="#feature-visualization">10. Visualisasi Fitur</a></li>
+            <li><a href="#deployment">11. Alat Deploy Model</a></li>
+            <li><a href="#conclusion">12. Kesimpulan</a></li>
+        </ul>
+    </aside>
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <div class="main-content">
+        <div class="section" id="introduction">
+            <h2>1. Pendahuluan</h2>
+            <p>
+                Notebook ini merupakan implementasi sistem klasifikasi jamur yang sangat canggih dengan menggunakan
+                teknik
+                pembelajaran mendalam. Sistem ini dikembangkan untuk membantu mengidentifikasi jenis-jenis jamur melalui
+                analisis citra secara menyeluruh, dengan pendekatan yang memadukan analisis eksploratori, pra-pemrosesan
+                citra, dan optimasi hyperparameter melalui Particle Swarm Optimization (PSO).
+            </p>
+            <p>
+                Tujuan proyek ini adalah untuk menghasilkan model yang tidak hanya akurat tetapi juga mampu menangani
+                variety kondisi citra, seperti perbedaan pencahayaan, latar belakang, dan kualitas gambar, sehingga
+                dapat
+                diaplikasikan dalam situasi nyata maupun untuk tujuan edukasi.
+            </p>
+        </div>
+
+        <div class="section" id="libraries">
+            <h2>2. Perpustakaan dan Dependensi</h2>
+            <p>
+                Proyek ini menggunakan berbagai perpustakaan Python yang sangat penting untuk pengolahan data,
+                pengembangan
+                model pembelajaran mendalam, dan visualisasi. Beberapa di antaranya meliputi:
+            </p>
+            <ul>
+                <li><strong>NumPy dan Pandas</strong>: Digunakan untuk operasi matematika dan manipulasi data dengan
+                    efisien.</li>
+                <li><strong>PyTorch dan torchvision</strong>: Kerangka kerja inti untuk pengembangan model deep learning
+                    dan
+                    manipulasi citra.</li>
+                <li><strong>Matplotlib dan Seaborn</strong>: Untuk membuat visualisasi data yang informatif dan estetik.
+                </li>
+                <li><strong>scikit-learn</strong>: Menyediakan alat untuk pembagian data, perhitungan metrik evaluasi,
+                    serta
+                    teknik reduksi dimensi.</li>
+                <li><strong>PySwarms</strong>: Digunakan untuk optimasi hyperparameter melalui algoritma Particle Swarm
+                    Optimization.</li>
+                <li><strong>OpenCV (cv2) dan PIL</strong>: Untuk melakukan operasi pengolahan citra yang mendetail.</li>
+                <li><strong>tqdm</strong>: Menampilkan progres bar yang membantu memantau proses pelatihan dan evaluasi.
+                </li>
+            </ul>
+            <p>
+                Penerapan pengaturan seperti <code>ImageFile.LOAD_TRUNCATED_IMAGES = True</code> juga digunakan untuk
+                memastikan bahwa gambar yang rusak atau terpotong tidak mengganggu proses pelatihan, sehingga pipeline
+                menjadi lebih robust.
+            </p>
+        </div>
+
+        <div class="section" id="data-loading">
+            <h2>3. Pemrosesan Data dan Pengaturan Awal</h2>
+            <h3>Deteksi Lingkungan</h3>
+            <p>
+                Untuk menjamin portabilitas, notebook ini secara otomatis mendeteksi apakah dijalankan di Google Colab
+                atau
+                mesin lokal. Berdasarkan deteksi tersebut, jalur ke dataset (base_path) disesuaikan agar setup dapat
+                berjalan dengan lancar pada kedua lingkungan.
+            </p>
+            <pre>
+# Mount Google Drive for Colab if needed
+try:
+    from google.colab import drive
+    drive.mount('/content/drive')
+    base_path = "/content/drive/MyDrive/Skripsi-ghamal/Mushrooms"
+    COLAB = True
+except:
+    base_path = "../Mushrooms"  # Adjust this to your local path
+    COLAB = False
+</pre>
+            <h3>Reproduksibilitas</h3>
+            <p>
+                Reproduksibilitas merupakan aspek kritis dalam penelitian. Dengan menyetel seed secara konsisten di
+                seluruh
+                library yang dipakai (seperti numpy, random, dan torch), setiap eksekusi notebook akan memberikan output
+                yang identik, sehingga memudahkan verifikasi eksperimen.
+            </p>
+            <pre>
+def set_seed(seed=1337):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+set_seed(1337)
+</pre>
+        </div>
+
+        <div class="section" id="eda">
+            <h2>4. Analisis Data Eksploratori (EDA)</h2>
+            <p>
+                Bagian ini difokuskan pada analisis menyeluruh terhadap dataset gambar jamur untuk memahami distribusi
+                kelas, dimensi gambar, dan karakteristik visual lainnya. Analisis ini bertujuan untuk memberikan wawasan
+                yang mendalam sehingga dapat mengarahkan pemilihan teknik pra-pemrosesan dan arsitektur model.
+            </p>
+            <h3>Informasi Dasar Dataset</h3>
+            <p>
+                Dataset di-load menggunakan ImageFolder dari torchvision yang secara otomatis memberikan label untuk
+                tiap
+                kelas. Informasi dasar seperti jumlah kelas dan total gambar dikalkulasi agar kita bisa mengetahui skala
+                dataset yang digunakan.
+            </p>
+            <pre>
+all_data = datasets.ImageFolder(root=base_path)
+class_names = all_data.classes
+class_to_idx = all_data.class_to_idx
+</pre>
+            <h3>Analisis Distribusi Kelas</h3>
+            <p>
+                Dengan menggunakan perhitungan distribusi kelas dan visualisasi bar chart, kita dapat mendeteksi adanya
+                ketidakseimbangan kelas. Informasi ini sangat penting untuk memastikan bahwa model tidak bias terhadap
+                kelas
+                tertentu.
+            </p>
+            <pre>
+class_counts = Counter([label for _, label in all_data.samples])
+class_distribution = {class_names[i]: class_counts[i] for i in range(len(class_names))}
+</pre>
+            <h3>Analisis Properti Gambar</h3>
+            <p>
+                Fungsi <code>analyze_image_properties</code> secara mendalam mengukur berbagai aspek tiap gambar seperti
+                lebar, tinggi, rasio aspek, ukuran area, dan tingkat kecerahan. Informasi ini memungkinkan kita memahami
+                karakteristik visual dataset dan menyesuaikan teknik augmentasi serta pra-pemrosesan.
+            </p>
+            <pre>
+def analyze_image_properties(dataset):
+    """Analyze and plot basic properties of the images in the dataset"""
+    # ...existing code...
+</pre>
+            <h3>Visualisasi Sampel</h3>
+            <p>
+                Untuk melakukan pemeriksaan visual, sejumlah sampel gambar dari masing-masing kelas ditampilkan. Hal ini
+                membantu dalam mengidentifikasi permasalahan potensial seperti variasi intensitas cahaya, latar belakang
+                yang kompleks, atau kualitas gambar yang berbeda.
+            </p>
+            <pre>
+for i, class_name in enumerate(class_names):
+    # Find first image of this class
+    for idx, (img, label) in enumerate(all_data):
+        if label == class_to_idx[class_name]:
+            plt.subplot(3, 3, i+1)
+            plt.imshow(img)
+            plt.title(f"{class_name}")
+            plt.axis('off')
+            break
+</pre>
+        </div>
+
+        <div class="section" id="preprocessing">
+            <h2>5. Pra-pemrosesan Citra dan Augmentasi Data Tingkat Lanjut</h2>
+            <p>
+                Di bagian ini, teknik pra-pemrosesan dan augmentasi data yang kompleks diterapkan untuk meningkatkan
+                kemampuan generalisasi model. Dengan menggunakan transformasi acak serta metode cropping yang menjaga
+                rasio
+                aspek, proses augmentasi bertujuan untuk menciptakan keragaman data yang realistis.
+            </p>
+            <h3>Kelas Custom Dataset</h3>
+            <p>
+                Kelas <code>MyDataset</code> dibuat untuk mengaplikasikan transformasi pada setiap sampel data, dengan
+                memastikan setiap citra mengalami augmentasi dan normalisasi yang konsisten.
+            </p>
+            <pre>
+class MyDataset(data.Dataset):
+    def __init__(self, subset, transform):
+        self.subset = subset
+        self.transform = transform
+
+    def __getitem__(self, index):
+        x, y = self.subset[index]
+        return self.transform(x), y
+
+    def __len__(self):
+        return len(self.subset)
+</pre>
+            <h3>Custom Center Crop</h3>
+            <p>
+                Modul <code>CenterCrop</code> dikembangkan untuk melakukan crop pada citra secara cerdas, dengan tetap
+                mempertahankan rasio aspek asli. Pendekatan ini penting agar fitur utama pada jamur tidak terdistorsi
+                saat
+                di-resize.
+            </p>
+            <pre>
+class CenterCrop(torch.nn.Module):
+    def __init__(self, size=None, ratio="1:1"):
+        super().__init__()
+        self.size = size
+        self.ratio = ratio
+        
+    def forward(self, img):
+        # Intelligent cropping logic that preserves aspect ratio
+        # ...existing code...
+</pre>
+            <h3>Augmentasi Data</h3>
+            <p>
+                Rangkaian transformasi untuk data pelatihan meliputi operasi seperti rotasi, flipping, dan color jitter,
+                yang secara keseluruhan bertujuan untuk menghasilkan variasi gambar yang luas. Teknik ini membantu
+                mengurangi risiko overfitting dan meningkatkan robustnya model terhadap kondisi dunia nyata.
+            </p>
+            <p>
+                <strong>Penjelasan Lengkap tentang Augmentasi Data:</strong><br><br>
+                Augmentasi data merupakan teknik penting untuk memperbesar jumlah data secara virtual dengan menerapkan
+                berbagai transformasi acak pada citra. Teknik ini membantu model belajar dari variasi gambar yang
+                berbeda
+                sehingga meningkatkan kemampuan generalisasi dan mengurangi risiko overfitting. Dalam proyek ini,
+                beberapa
+                metode augmentasi yang digunakan meliputi:
+            </p>
+            <ul>
+                <li><strong>Random Resized Crop:</strong> Mengambil potongan acak dari citra dan mengubah ukurannya ke
+                    dimensi yang diinginkan, sehingga model dapat mengenali objek dalam berbagai skala dan posisi.</li>
+                <li><strong>Horizontal dan Vertical Flip:</strong> Melakukan pembalikan citra secara horizontal dan/atau
+                    vertikal untuk memberikan variasi orientasi objek.</li>
+                <li><strong>Random Rotation:</strong> Memutar citra secara acak hingga 30 derajat, memungkinkan model
+                    untuk
+                    belajar dari berbagai sudut pandang.</li>
+                <li><strong>Color Jitter:</strong> Mengubah kecerahan, kontras, saturasi, dan hue secara acak guna
+                    meniru
+                    kondisi pencahayaan dan warna yang berbeda dalam gambar.</li>
+                <li><strong>Auto Augment:</strong> Menerapkan kebijakan augmentasi yang telah dioptimasi, seperti yang
+                    digunakan pada dataset ImageNet, untuk menghasilkan kombinasi transformasi yang lebih kompleks dan
+                    realistis.</li>
+            </ul>
+            <p>
+                Kombinasi transformasi ini tidak hanya meningkatkan keragaman data, tetapi juga membuat model lebih
+                robust
+                dalam mengenali objek meskipun terjadi perubahan posisi, skala, orientasi, maupun kondisi pencahayaan.
+                Dengan demikian, augmentasi data sangat penting untuk mencapai performa yang lebih baik pada data dunia
+                nyata.
+            </p>
+            <h3>Pembagian Data dengan Stratifikasi</h3>
+            <p>
+                Data dipisahkan menjadi subset pelatihan dan pengujian secara stratifikasi untuk memastikan distribusi
+                label
+                yang proporsional di semua subset. Hal ini sangat krusial agar evaluasi model menjadi representatif.
+            </p>
+            <pre>
+def stratified_split(dataset, test_size=0.3, random_state=42):
+    indices = list(range(len(dataset)))
+    labels = [dataset[i][1] for i in indices]
+    
+    train_idx, test_idx = train_test_split(
+        indices, 
+        test_size=test_size, 
+        random_state=random_state,
+        stratify=labels
+    )
+    
+    return torch.utils.data.Subset(dataset, train_idx), torch.utils.data.Subset(dataset, test_idx)
+</pre>
+            <h3>Visualisasi Augmentasi</h3>
+            <p>
+                Fungsi <code>show_augmentations</code> menampilkan beberapa versi transformasi dari gambar asli,
+                sehingga
+                memudahkan verifikasi bahwa augmentasi telah diterapkan dengan benar tanpa mengorbankan informasi
+                penting
+                dari citra.
+            </p>
+            <pre>
+def show_augmentations(image, transform, num_samples=5):
+    """Apply the transformation multiple times to show its effect"""
+    # ...existing code...
+</pre>
+        </div>
+
+        <div class="section" id="gpu-setup">
+            <h2>6. Pengaturan GPU</h2>
+            <p>
+                Bagian ini memeriksa ketersediaan GPU dan mengonfigurasikan perangkat untuk pelatihan. Penggunaan GPU
+                secara
+                signifikan mempercepat proses pelatihan, terutama untuk model deep learning yang kompleks.
+            </p>
+            <pre>
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+    print(f"GPU: {torch.cuda.get_device_name(0)} is available.")
+else:
+    device = torch.device("cpu")
+    print("No GPU available. Training will run on CPU.")
+</pre>
+        </div>
+
+        <div class="section" id="hyperparameter-optimization">
+            <h2>7. Optimasi Hyperparameter dengan PSO</h2>
+            <p>
+                Pada tahap ini, algoritma Particle Swarm Optimization (PSO) digunakan untuk mencari kombinasi
+                hyperparameter
+                terbaik bagi model. Proses ini menguji berbagai kombinasi parameter seperti learning rate, momentum,
+                weight
+                decay, dan jumlah layer yang di-unfreeze, guna mendapatkan performa validasi yang optimal.
+            </p>
+            <p>
+                <strong>Detail Proses PSO Hyperparameter Tuning:</strong><br>
+                1. <strong>Parameter yang di-tuning:</strong>
+            <ul>
+                <li><strong>Learning Rate (lr):</strong> Di-tuning dalam skala logaritmik dari 10<sup>-4</sup> hingga
+                    10<sup>-1</sup>.</li>
+                <li><strong>Momentum:</strong> Nilai antara 0.8 hingga 0.99.</li>
+                <li><strong>Weight Decay:</strong> Di-tuning dalam skala logaritmik dari 10<sup>-5</sup> hingga
+                    10<sup>-3</sup>.</li>
+                <li><strong>Jumlah Layer yang Di-unfreeze:</strong> Nilai integer, dihitung sebagai (nilai parameter +
+                    1),
+                    berkisar antara 1 hingga 4.</li>
+            </ul>
+            2. <strong>Proses PSO:</strong>
+            <ul>
+                <li>Setiap partikel dalam swarm merepresentasikan satu kombinasi hyperparameter yang dipilih secara acak
+                    sesuai rentang yang telah ditentukan.</li>
+                <li>Setiap partikel tersebut digunakan untuk membangun model ResNet50, kemudian dilakukan pelatihan
+                    cepat
+                    (hingga 50 batch) dan validasi cepat (hingga 30 batch) untuk menghitung nilai training loss dan
+                    validation accuracy.</li>
+                <li>Fungsi objektif dihitung sebagai: <em>Objective = -(validation accuracy) + 0.1 * (training
+                        loss)</em>,
+                    dengan tujuan untuk meminimasi nilai objektif tersebut.</li>
+            </ul>
+            3. <strong>Parameter PSO:</strong>
+            <ul>
+                <li><strong>c1 (Koefisien Kognitif):</strong> 0.5 – Mendorong partikel untuk kembali ke solusi terbaik
+                    pribadinya.</li>
+                <li><strong>c2 (Koefisien Sosial):</strong> 0.3 – Mengarahkan partikel berdasarkan solusi terbaik yang
+                    ditemukan oleh swarm.</li>
+                <li><strong>w (Inertia Weight):</strong> 0.9 – Menjaga momentum partikel untuk menyeimbangkan eksplorasi
+                    dan
+                    eksploitasi.</li>
+                <li><strong>k dan p:</strong> 2 masing-masing – Parameter tambahan yang mengontrol interaksi antar
+                    partikel.
+                </li>
+            </ul>
+            4. <strong>Iterasi Proses:</strong> Dengan 5 partikel dan 3 iterasi, setiap partikel diperbarui berdasarkan
+            solusi terbaik pribadi dan global untuk menemukan kombinasi hyperparameter yang memberikan performa validasi
+            optimal.
+            </p>
+            <h3>Arsitektur Model dengan Hyperparameter Konfigurable</h3>
+            <p>
+                Fungsi <code>create_model</code> membangun model ResNet50 dengan parameter yang dapat disesuaikan.
+                Dengan
+                strategi transfer learning dan pembekuan sebagian parameter, model dioptimasi agar mumpuni dalam
+                mengenali
+                fitur-fitur penting pada gambar jamur.
+            </p>
+            <pre>
+def create_model(lr=0.01, momentum=0.9, weight_decay=0.0001, unfreeze_layers=1):
+    """Create a ResNet50 model with specified hyperparameters"""
+    model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+    
+    # Freeze layers logic
+    # ...existing code...
+    
+    # Replace the final fully connected layer
+    num_classes = len(all_data.classes)
+    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    
+    # Define optimizer
+    optimizer = optim.SGD(
+        model.parameters(),
+        lr=lr,
+        momentum=momentum,
+        weight_decay=weight_decay
+    )
+    
+    # Define criterion (loss function)
+    criterion = nn.CrossEntropyLoss().to(device)
+    
+    return model, optimizer, criterion
+</pre>
+            <h3>Pembuatan Data Loader</h3>
+            <p>
+                Data loader disusun untuk pembagian data pelatihan, validasi, dan pengujian yang efisien. Hal ini
+                memastikan
+                setiap batch data yang masuk ke dalam model memiliki distribusi kelas yang seimbang dan representatif.
+            </p>
+            <pre>
+def create_data_loaders(batch_size=64, val_size=0.1):
+    """Create train, validation, and test data loaders"""
+    # ...existing code...
+</pre>
+            <h3>Fungsi Pelatihan dan Validasi Cepat</h3>
+            <p>
+                Fungsi-fungsi singkat untuk pelatihan dan validasi digunakan agar iterasi selama proses optimasi
+                hyperparameter dapat dijalankan dengan cepat. Ini memungkinkan evaluasi performa model secara efisien
+                dengan
+                hanya sebagian batch data.
+            </p>
+            <pre>
+def train_quick(model, optimizer, criterion, train_loader, max_batches=50):
+    """Quick training function for hyperparameter optimization"""
+    # ...existing code...
+
+def validate_quick(model, val_loader, max_batches=30):
+    """Quick validation function for hyperparameter optimization"""
+    # ...existing code...
+</pre>
+            <h3>Fungsi Objektif PSO</h3>
+            <p>
+                Fungsi objektif dalam PSO mengukur performa setiap kombinasi hyperparameter dengan menggabungkan akurasi
+                validasi dan nilai loss pelatihan. Pendekatan ini memastikan bahwa model tidak hanya mengoptimasi
+                akurasi
+                saja tetapi juga menjaga stabilitas pelatihan.
+            </p>
+            <pre>
+def pso_objective_function(params):
+    """Objective function to minimize for PSO"""
+    n_particles = params.shape[0]
+    performance = []
+    
+    for i in range(n_particles):
+        # Extract hyperparameters
+        lr = 10 ** params[i, 0]  # log scale for learning rate: 10^-4 to 10^-1
+        momentum = params[i, 1]  # 0.8 to 0.99
+        weight_decay = 10 ** params[i, 2]  # log scale: 10^-5 to 10^-3
+        unfreeze_layers = int(params[i, 3]) + 1  # 1 to 4 layers
+        
+        # Create and evaluate model
+        # ...existing code...
+        
+        # We want to minimize (negative of validation accuracy + small weight for training loss)
+        performance.append(-val_acc + 0.1 * train_loss)
+        
+    return np.array(performance)
+</pre>
+            <h3>Pelaksanaan Optimasi PSO</h3>
+            <p>
+                Setelah penyesuaian parameter dan pembentukan swarm, algoritma PSO dijalankan untuk mengeksplorasi ruang
+                hyperparameter. Hasil akhirnya adalah kombinasi parameter terbaik yang dicetak dan akan digunakan untuk
+                pelatihan model final.
+            </p>
+            <pre>
+# PSO options
+options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
+
+# Initialize swarm with fewer particles for demo
+n_particles = 5
+dimensions = 4
+optimizer = ps.single.GlobalBestPSO(
+    n_particles=n_particles,
+    dimensions=dimensions,
+    options=options,
+    bounds=bounds
+)
+
+# Run optimization
+cost, pos = optimizer.optimize(pso_objective_function, iters=3)
+</pre>
+        </div>
+
+        <div class="section" id="model-training">
+            <h2>8. Pelatihan Model dengan Hyperparameter Optimal</h2>
+            <p>
+                Dengan hyperparameter yang telah dioptimasi melalui PSO, langkah berikutnya adalah melatih model secara
+                penuh. Proses ini mencakup penyesuaian learning rate secara dinamis serta validasi berkala untuk memilih
+                model dengan performa terbaik.
+            </p>
+            <h3>Pembuatan Model dengan Hyperparameter Terbaik</h3>
+            <p>
+                Model dibuat menggunakan parameter optimal yang telah ditemukan. Penyesuaian learning rate menggunakan
+                scheduler akan membantu penurunan learning rate secara bertahap selama pelatihan agar model mencapai
+                konvergensi dengan lebih baik.
+            </p>
+            <pre>
+model, optimizer, criterion = create_model(
+    lr=best_lr,
+    momentum=best_momentum,
+    weight_decay=best_weight_decay,
+    unfreeze_layers=best_unfreeze_layers
+)
+
+# Learning rate scheduler
+scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10)
+</pre>
+            <h3>Fungsi Pelatihan Lengkap</h3>
+            <p>
+                Fungsi <code>train_model</code> mengelola seluruh siklus pelatihan, mulai dari iterasi batch hingga
+                validasi
+                di setiap epoch. Proses ini mencatat loss dan akurasi, serta menyimpan bobot model terbaik untuk
+                pengujian
+                akhir.
+            </p>
+            <pre>
+def train_model(model, optimizer, criterion, scheduler, train_loader, val_loader, epochs=10):
+    """Full training function with validation"""
+    train_losses = []
+    val_losses = []
+    val_accuracies = []
+    
+    best_val_acc = 0
+    best_model_wts = None
+    
+    for epoch in range(epochs):
+        # Training phase
+        model.train()
+        running_loss = 0.0
+        
+        train_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs} [Train]")
+        for inputs, labels in train_bar:
+            inputs, labels = inputs.to(device), labels.to(device)
+            
+            optimizer.zero_grad()
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            
+            running_loss += loss.item()
+            train_bar.set_postfix(loss=loss.item())
+            
+        epoch_train_loss = running_loss / len(train_loader)
+        train_losses.append(epoch_train_loss)
+        
+        # Validation phase
+        model.eval()
+        running_loss = 0.0
+        correct = 0
+        total = 0
+        
+        with torch.no_grad():
+            val_bar = tqdm(val_loader, desc=f"Epoch {epoch+1}/{epochs} [Valid]")
+            for inputs, labels in val_bar:
+                inputs, labels = inputs.to(device), labels.to(device)
+                
+                outputs = model(inputs)
+                loss = criterion(outputs, labels)
+                
+                running_loss += loss.item()
+                
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+                
+                val_bar.set_postfix(loss=loss.item())
+        
+        epoch_val_loss = running_loss / len(val_loader)
+        val_losses.append(epoch_val_loss)
+        
+        epoch_val_acc = correct / total
+        val_accuracies.append(epoch_val_acc)
+        
+        print(f"Epoch {epoch+1}/{epochs}:")
+        print(f"  Train Loss: {epoch_train_loss:.4f}")
+        print(f"  Val Loss: {epoch_val_loss:.4f}")
+        print(f"  Val Accuracy: {epoch_val_acc:.4f}")
+        
+        # Save best model
+        if epoch_val_acc > best_val_acc:
+            best_val_acc = epoch_val_acc
+            best_model_wts = model.state_dict().copy()
+        
+        # Step the scheduler
+        scheduler.step()
+    
+    # Load best model weights
+    model.load_state_dict(best_model_wts)
+    
+    return model, train_losses, val_losses, val_accuracies
+</pre>
+        </div>
+
+        <div class="section" id="evaluation">
+            <h2>9. Evaluasi Model</h2>
+            <p>
+                Setelah pelatihan selesai, model dievaluasi secara menyeluruh menggunakan data pengujian. Evaluasi ini
+                mencakup akurasi keseluruhan, pembuatan confusion matrix normalisasi, dan laporan klasifikasi yang
+                merinci
+                precision, recall, dan F1-score untuk masing-masing kelas.
+            </p>
+            <h3>Fungsi Evaluasi Model</h3>
+            <p>
+                Fungsi <code>evaluate_model</code> menghimpun prediksi model dan membandingkannya dengan label asli.
+                Hasil
+                evaluasi ini memberikan gambaran yang jelas mengenai kinerja model dalam mengeneralisasi data baru.
+            </p>
+            <pre>
+def evaluate_model(model, test_loader):
+    model.eval()
+    
+    all_preds = []
+    all_labels = []
+    
+    with torch.no_grad():
+        for inputs, labels in tqdm(test_loader, desc="Evaluating"):
+            inputs = inputs.to(device)
+            outputs = model(inputs)
+            _, preds = torch.max(outputs, 1)
+            
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(labels.numpy())
+    
+    return all_preds, all_labels
+</pre>
+            <h3>Metrik Performa</h3>
+            <p>
+                Berbagai metrik evaluasi dihitung untuk memberikan gambaran menyeluruh tentang kinerja model:
+            </p>
+            <pre>
+# Calculate accuracy
+accuracy = accuracy_score(truth, predictions)
+print(f"Test Accuracy: {accuracy:.4f}")
+
+# Create and display confusion matrix
+cm = confusion_matrix(truth, predictions)
+# ...visualization code...
+
+# Detailed classification report
+print("\nClassification Report:")
+print(classification_report(truth, predictions, target_names=class_names))
+</pre>
+            <h3>Visualisasi Prediksi</h3>
+            <p>
+                Fungsi untuk memvisualisasikan prediksi membantu memastikan bahwa model membuat keputusan yang tepat.
+                Gambar
+                hasil prediksi ditampilkan dengan penandaan warna hijau untuk prediksi yang benar dan merah untuk
+                kesalahan,
+                sehingga memudahkan analisis visual terhadap performa model.
+            </p>
+            <pre>
+def plot_predictions(model, test_loader, class_names, num_samples=10):
+    """Plot some predictions from the model"""
+    # ...existing code...
+    
+    # Display predictions
+    fig, axes = plt.subplots(2, 5, figsize=(15, 6))
+    axes = axes.flatten()
+    
+    for i, (img, true_label, pred_label) in enumerate(zip(all_images, all_labels, all_preds)):
+        # ...visualization code...
+        
+        title_color = 'green' if true_label == pred_label else 'red'
+        ax.set_title(f"True: {class_names[true_label]}\nPred: {class_names[pred_label]}", 
+                     color=title_color)
+</pre>
+        </div>
+
+        <div class="section" id="feature-visualization">
+            <h2>10. Visualisasi Fitur dan Interpretasinya</h2>
+            <p>
+                Bagian ini menggali fitur-fitur yang telah diekstraksi oleh model dari layer sebelum layer klasifikasi
+                akhir. Dengan melakukan reduksi dimensi menggunakan teknik PCA dan t-SNE, kita dapat memvisualisasikan
+                distribusi fitur dalam ruang dua dimensi yang mudah dipahami.
+            </p>
+            <h3>Ekstraksi Fitur</h3>
+            <p>
+                Fungsi <code>extract_features</code> mengambil representasi fitur tingkat tinggi dari model, yang
+                kemudian
+                direduksi untuk dianalisis. Pendekatan ini sangat membantu dalam memahami bagaimana model memisahkan
+                antar
+                kelas dalam dimensi fitur.
+            </p>
+            <pre>
+def extract_features(model, data_loader):
+    """Extract features from the penultimate layer"""
+    # Create a new model that outputs features from the penultimate layer
+    feature_extractor = torch.nn.Sequential(*list(model.children())[:-1])
+    feature_extractor.eval()
+    
+    features = []
+    labels = []
+    
+    with torch.no_grad():
+        for inputs, batch_labels in tqdm(data_loader, desc="Extracting features"):
+            inputs = inputs.to(device)
+            batch_features = feature_extractor(inputs)
+            batch_features = batch_features.view(batch_features.size(0), -1)
+            
+            features.append(batch_features.cpu().numpy())
+            labels.append(batch_labels.numpy())
+    
+    features = np.vstack(features)
+    labels = np.concatenate(labels)
+    
+    return features, labels
+
+# Get features from test set
+test_features, test_labels = extract_features(model, test_loader)
+</pre>
+            <h3>Reduksi Dimensi untuk Visualisasi</h3>
+            <p>
+                Teknik PCA dan t-SNE digunakan untuk mereduksi dimensi fitur. PCA mempertahankan struktur global
+                sedangkan
+                t-SNE sangat efektif dalam menyoroti kelompok atau cluster lokal. Visualisasi ini memberikan insight
+                tentang
+                seberapa baik fitur yang dipelajari mampu mengklasifikasikan berbagai jenis jamur.
+            </p>
+            <pre>
+# PCA reduction
+pca = PCA(n_components=2)
+pca_result = pca.fit_transform(test_features)
+
+# t-SNE reduction
+tsne = TSNE(n_components=2, random_state=42)
+tsne_result = tsne.fit_transform(test_features)
+</pre>
+        </div>
+
+        <div class="section" id="deployment">
+            <h2>11. Alat Deploy Model</h2>
+            <p>
+                Setelah model terlatih dan dievaluasi, langkah selanjutnya adalah menyiapkan alat untuk deployment.
+                Fungsi
+                inferensi disusun agar model dapat dengan mudah digunakan untuk prediksi pada data baru, sehingga dapat
+                diintegrasikan ke dalam aplikasi dunia nyata.
+            </p>
+            <h3>Fungsi Inferensi</h3>
+            <p>
+                Fungsi <code>predict_mushroom_type</code> memuat dan memproses sebuah citra, lalu menghasilkan prediksi
+                berupa tiga kelas teratas beserta probabilitasnya. Pendekatan ini menyediakan antarmuka yang sederhana
+                dan
+                jelas untuk penggunaan model dalam skenario deployment.
+            </p>
+            <pre>
+def predict_mushroom_type(model, image_path, class_names):
+    """Predict mushroom type from an image file"""
+    # Load and preprocess the image
+    image = Image.open(image_path).convert('RGB')
+    
+    # Apply the same transformations as for the test set
+    transform = transforms.Compose([
+        CenterCrop(),
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+    
+    image_tensor = transform(image).unsqueeze(0).to(device)
+    
+    # Make prediction
+    model.eval()
+    with torch.no_grad():
+        output = model(image_tensor)
+        probabilities = F.softmax(output, dim=1)
+        
+        # Get top probabilities and classes
+        top_probs, top_classes = torch.topk(probabilities, 3)
+    
+    # Prepare results
+    results = []
+    for i in range(3):
+        class_idx = top_classes[0][i].item()
+        prob = top_probs[0][i].item()
+        results.append({
+            'class': class_names[class_idx],
+            'probability': f"{prob:.4f}"
+        })
+    
+    return results
+</pre>
+            <h3>Demonstrasi Penggunaan</h3>
+            <p>
+                Contoh penggunaan fungsi inferensi ditunjukkan dengan cara menyimpan sebuah citra sampel secara
+                temporer,
+                melakukan prediksi, dan kemudian menampilkan hasilnya bersama citra tersebut. Hal ini menggambarkan
+                bagaimana model dapat dipakai untuk mengidentifikasi jenis jamur secara langsung.
+            </p>
+            <pre>
+# Demo with a sample image from the test set
+sample_idx = random.randint(0, len(test_data) - 1)
+sample_img, sample_label = test_data[sample_idx]
+
+# Save sample image to a temporary file
+import tempfile
+temp_img = tempfile.NamedTemporaryFile(suffix='.jpg')
+temp_img_path = temp_img.name
+
+# Convert tensor to PIL image and save
+sample_img_np = sample_img.numpy().transpose((1, 2, 0))
+mean = np.array([0.485, 0.456, 0.406])
+std = np.array([0.229, 0.224, 0.225])
+sample_img_np = std * sample_img_np + mean
+sample_img_np = np.clip(sample_img_np, 0, 1)
+sample_img_pil = Image.fromarray((sample_img_np * 255).astype(np.uint8))
+sample_img_pil.save(temp_img_path)
+
+# Make prediction
+predictions = predict_mushroom_type(model, temp_img_path, class_names)
+
+# Display results
+plt.figure(figsize=(6, 6))
+plt.imshow(sample_img_pil)
+plt.title(f"True class: {class_names[sample_label]}")
+plt.axis('off')
+
+print("Top 3 predictions:")
+for i, pred in enumerate(predictions):
+    print(f"{i+1}. {pred['class']} (Probability: {pred['probability']})")
+</pre>
+        </div>
+
+        <div class="section" id="conclusion">
+            <h2>12. Kesimpulan</h2>
+            <p>
+                Notebook ini menyatukan berbagai teknik canggih untuk membangun sistem klasifikasi jamur yang andal.
+                Dengan
+                mengintegrasikan analisis data eksploratori mendalam, pra-pemrosesan dan augmentasi data tingkat lanjut,
+                optimasi hyperparameter menggunakan PSO, serta evaluasi menyeluruh, proyek ini berhasil menghasilkan
+                model
+                dengan performa tinggi.
+            </p>
+            <p>
+                Selain itu, visualisasi fitur memungkinkan kita memahami bagaimana model mempelajari perbedaan antar
+                kelas,
+                sementara fungsi deployment menyediakan sarana untuk penerapan model di lingkungan produksi. Pendekatan
+                komprehensif ini tidak hanya meningkatkan akurasi klasifikasi, tetapi juga memastikan bahwa model siap
+                untuk
+                diadopsi dalam aplikasi nyata.
+            </p>
+            <div class="note">
+                <strong>Catatan Masa Depan:</strong> Pengembangan lebih lanjut dapat mencakup penggunaan teknik
+                ensemble,
+                optimasi hyperparameter yang lebih mendalam, dan integrasi dengan metadata tambahan untuk meningkatkan
+                kinerja serta fleksibilitas model.
+            </div>
+        </div>
+
+        <footer>
+            <p>Dokumentasi Proyek Klasifikasi Jamur - Dibuat untuk keperluan edukasi dan penelitian</p>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('menuToggle').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Highlight current section in sidebar
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.section');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

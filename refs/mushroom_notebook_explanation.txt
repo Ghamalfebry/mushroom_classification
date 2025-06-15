@@ -1,0 +1,96 @@
+# Mushroom Classifier Notebook Explanation
+
+## Cell 1: Library Imports
+This cell imports all the necessary libraries for the project:
+- numpy and pandas for data manipulation
+- os and random for system operations and random number generation
+- pytorch libraries (torch, torchvision) for deep learning
+- matplotlib and seaborn for visualization
+- sklearn for metrics and evaluation
+- tqdm for progress tracking
+
+## Cell 2: Markdown Cell
+A simple markdown cell with the text "Making this dataset load"
+
+## Cell 3: Image Loading Configuration
+Configures PIL's ImageFile to load truncated images, which helps prevent errors when working with potentially corrupted image files.
+
+## Cell 4: Configuration Parameters
+Sets up important parameters for the model training:
+- random seed for reproducibility
+- num_classes = 9 (indicates there are 9 types of mushrooms to classify)
+- test_data_share = 0.3 (30% of data will be used for testing)
+- batch_size = 64 (number of images processed in each training step)
+- epochs = 10 (number of full passes through the training dataset)
+- lr = 0.05 (learning rate for optimization)
+- gamma = 0.8 (learning rate decay factor)
+- mean and std for image normalization (standard ImageNet values)
+
+## Cell 5: Custom Dataset Class
+Creates a wrapper dataset class that applies transformations to data subsets. This class:
+- Takes a subset of data and a transform function
+- Applies the transform to each item when accessed
+- Maintains the proper length and indexing of the original dataset
+
+## Cell 6: Google Drive Mount
+Used in Google Colab to mount Google Drive, which contains the mushroom dataset.
+
+## Cell 7: Data Loading
+Loads the mushroom image dataset from the specified Google Drive path and splits it into training and testing sets based on the test_data_share parameter.
+
+## Cell 8: Data Transformations
+Sets up data augmentation for training images:
+- RandomResizedCrop: Resizes and randomly crops images to 224×224 pixels
+- AutoAugment: Applies automatic augmentation policies for data diversification
+- ToTensor: Converts images to PyTorch tensors
+- Normalize: Standardizes images using the defined mean and std values
+Finally, applies these transformations to the training data.
+
+## Cell 9: Visualization Function
+Creates a helper function to display images before and after transformation, then shows an example mushroom image in both original and transformed states.
+
+## Cell 10: GPU Check
+Checks if a CUDA-capable GPU is available for training.
+
+## Cell 11: Device Selection
+Sets the device (GPU or CPU) for training based on availability and prints the GPU name if available.
+
+## Cell 12: Model Setup
+Prepares the ResNet50 model for transfer learning:
+- Loads a pre-trained ResNet50 with ImageNet weights
+- Freezes all parameters except for the last layer (layer4)
+- Replaces the final fully connected layer to match the 9 mushroom classes
+- Moves the model to the appropriate device (CPU/GPU)
+
+## Cell 13: Training Function
+Defines the training function which:
+- Sets up loss function (CrossEntropyLoss)
+- Configures optimizer (SGD) and learning rate scheduler
+- Loops through the defined number of epochs
+- Tracks and reports progress with tqdm
+- Returns the training losses for visualization
+
+## Cell 14: Model Training
+Controls whether to train a new model or load a saved one:
+- If training anew, runs the training function, plots the losses, and saves the model
+- Otherwise, loads a previously saved model
+
+## Cell 15: CenterCrop Class
+Implements a custom center-cropping transformation to maintain aspect ratios when preparing images.
+
+## Cell 16: Evaluation Setup
+Prepares for model evaluation:
+- Defines test data transformations (different from training transforms)
+- Creates the test dataset and data loader
+- Sets the model to evaluation mode
+- Processes the test data through the model to generate predictions
+- Collects ground truth labels and model predictions
+
+## Cell 17: Confusion Matrix
+Creates and displays a confusion matrix showing:
+- How well the model predicted each class
+- Where the model made mistakes (which classes were confused with others)
+- Uses seaborn for visualization with normalized values
+
+## Cell 18: Accuracy Calculation
+Calculates and displays the overall accuracy of the model by comparing predictions to ground truth labels.
