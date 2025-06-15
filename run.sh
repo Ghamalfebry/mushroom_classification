@@ -10,8 +10,8 @@ fi
 source venv/bin/activate
 
 # Install core dependencies first
-echo "Installing core dependencies..."
-pip install numpy pillow
+# echo "Installing core dependencies..."
+# pip install numpy pillow
 
 # Install remaining dependencies
 echo "Installing remaining dependencies..."
